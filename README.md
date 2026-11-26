@@ -34,7 +34,7 @@ for name in fig02_belief_encoder fig03_m3_accuracy fig07_coverage fig08_selectio
 done
 ```
 
-The expected PDFs and PNGs are written to `artifacts/figures/`. Figure inputs are the frozen encoder reports, the original M3 test-split prediction arrays, the conformal coverage summaries, the reported nominal and shift values, and the matched safety replay CSV. No raw datasets or preprocessing are required to build these figures.
+The expected PDFs and PNGs are written to `artifacts/figures/`. Figure inputs are the frozen encoder reports, the frozen prediction and observation arrays from the figure’s action-type-stratified visualization split, the conformal coverage summaries, the reported nominal and shift values, and the matched safety replay CSV. No raw datasets or preprocessing are required to build these figures.
 
 ## Optional encoder replay and timing
 
