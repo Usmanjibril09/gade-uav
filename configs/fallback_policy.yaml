@@ -1,0 +1,193 @@
+# Fallback-action lookup table (spec §8).
+# Rule (not learned): (mission_phase x primary_attack_family) -> fallback.
+#
+# Fallback actions (spec §8):
+#   NO_OP                  -- silence, no emission
+#   STATIC_HONEY_RESPONSE  -- pre-computed MAVLink from fixed library
+#   RATE_LIMIT_SOURCE      -- network-layer throttle, no generation
+#   HAND_OFF_TO_IDS        -- log for later analysis
+#
+# The attack-family keys are the canonical T1..T18 codes from
+# docs/01_threat_model.md (as extended by Amendment A1). If the primary
+# attack cannot be identified, use the "unknown" row.
+#
+# Any change here requires a spec amendment (§12).
+
+default_action: HAND_OFF_TO_IDS
+
+# Row: attack_family. Column: mission_phase.
+# When choosing under critical phases we bias toward NO_OP (do nothing
+# is always safe). In non-critical phases we bias toward active but
+# non-generative responses.
+
+table:
+  T1_Reconnaissance:
+    idle:                  STATIC_HONEY_RESPONSE
+    takeoff:               NO_OP
+    cruise:                STATIC_HONEY_RESPONSE
+    precision_hover:       NO_OP
+    landing:               NO_OP
+    emergency_recovery:    NO_OP
+    post_landing:          STATIC_HONEY_RESPONSE
+
+  T2_DoS:
+    idle:                  RATE_LIMIT_SOURCE
+    takeoff:               NO_OP
+    cruise:                RATE_LIMIT_SOURCE
+    precision_hover:       NO_OP
+    landing:               NO_OP
+    emergency_recovery:    NO_OP
+    post_landing:          RATE_LIMIT_SOURCE
+
+  T3_DDoS:
+    idle:                  RATE_LIMIT_SOURCE
+    takeoff:               NO_OP
+    cruise:                RATE_LIMIT_SOURCE
+    precision_hover:       NO_OP
+    landing:               NO_OP
+    emergency_recovery:    NO_OP
+    post_landing:          RATE_LIMIT_SOURCE
+
+  T4_UDP_Flooding:
+    idle:                  RATE_LIMIT_SOURCE
+    takeoff:               NO_OP
+    cruise:                RATE_LIMIT_SOURCE
+    precision_hover:       NO_OP
+    landing:               NO_OP
+    emergency_recovery:    NO_OP
+    post_landing:          RATE_LIMIT_SOURCE
+
+  T5_ICMP_Flooding:
+    idle:                  RATE_LIMIT_SOURCE
+    takeoff:               NO_OP
+    cruise:                RATE_LIMIT_SOURCE
+    precision_hover:       NO_OP
+    landing:               NO_OP
+    emergency_recovery:    NO_OP
+    post_landing:          RATE_LIMIT_SOURCE
+
+  T6_Deauthentication:
+    idle:                  HAND_OFF_TO_IDS
+    takeoff:               NO_OP
+    cruise:                HAND_OFF_TO_IDS
+    precision_hover:       NO_OP
+    landing:               NO_OP
+    emergency_recovery:    NO_OP
+    post_landing:          HAND_OFF_TO_IDS
+
+  T7_MITM:
+    idle:                  HAND_OFF_TO_IDS
+    takeoff:               HAND_OFF_TO_IDS
+    cruise:                HAND_OFF_TO_IDS
+    precision_hover:       HAND_OFF_TO_IDS
+    landing:               HAND_OFF_TO_IDS
+    emergency_recovery:    HAND_OFF_TO_IDS
+    post_landing:          HAND_OFF_TO_IDS
+
+  T8_Replay:
+    idle:                  HAND_OFF_TO_IDS
+    takeoff:               HAND_OFF_TO_IDS
+    cruise:                HAND_OFF_TO_IDS
+    precision_hover:       HAND_OFF_TO_IDS
+    landing:               HAND_OFF_TO_IDS
+    emergency_recovery:    HAND_OFF_TO_IDS
+    post_landing:          HAND_OFF_TO_IDS
+
+  T9_BruteForce:
+    idle:                  RATE_LIMIT_SOURCE
+    takeoff:               NO_OP
+    cruise:                RATE_LIMIT_SOURCE
+    precision_hover:       NO_OP
+    landing:               NO_OP
+    emergency_recovery:    NO_OP
+    post_landing:          RATE_LIMIT_SOURCE
+
+  T10_Jamming:
+    idle:                  HAND_OFF_TO_IDS
+    takeoff:               NO_OP
+    cruise:                HAND_OFF_TO_IDS
+    precision_hover:       NO_OP
+    landing:               NO_OP
+    emergency_recovery:    NO_OP
+    post_landing:          HAND_OFF_TO_IDS
+
+  T11_GPS_Spoofing:
+    idle:                  HAND_OFF_TO_IDS
+    takeoff:               NO_OP
+    cruise:                HAND_OFF_TO_IDS
+    precision_hover:       NO_OP
+    landing:               NO_OP
+    emergency_recovery:    NO_OP
+    post_landing:          HAND_OFF_TO_IDS
+
+  T12_FakeLanding:
+    idle:                  NO_OP
+    takeoff:               NO_OP
+    cruise:                NO_OP
+    precision_hover:       NO_OP
+    landing:               NO_OP
+    emergency_recovery:    NO_OP
+    post_landing:          NO_OP
+
+  T13_MAVLink_Heartbeat_Flooding:
+    idle:                  RATE_LIMIT_SOURCE
+    takeoff:               NO_OP
+    cruise:                RATE_LIMIT_SOURCE
+    precision_hover:       NO_OP
+    landing:               NO_OP
+    emergency_recovery:    NO_OP
+    post_landing:          RATE_LIMIT_SOURCE
+
+  T14_MAVLink_Ping_Flooding:
+    idle:                  RATE_LIMIT_SOURCE
+    takeoff:               NO_OP
+    cruise:                RATE_LIMIT_SOURCE
+    precision_hover:       NO_OP
+    landing:               NO_OP
+    emergency_recovery:    NO_OP
+    post_landing:          RATE_LIMIT_SOURCE
+
+  T15_MAVLink_Request_Flooding:
+    idle:                  RATE_LIMIT_SOURCE
+    takeoff:               NO_OP
+    cruise:                RATE_LIMIT_SOURCE
+    precision_hover:       NO_OP
+    landing:               NO_OP
+    emergency_recovery:    NO_OP
+    post_landing:          RATE_LIMIT_SOURCE
+
+  T16_MAVLink_Corruption:
+    idle:                  HAND_OFF_TO_IDS
+    takeoff:               NO_OP
+    cruise:                HAND_OFF_TO_IDS
+    precision_hover:       NO_OP
+    landing:               NO_OP
+    emergency_recovery:    NO_OP
+    post_landing:          HAND_OFF_TO_IDS
+
+  T17_MAVLink_Suspension:
+    idle:                  HAND_OFF_TO_IDS
+    takeoff:               NO_OP
+    cruise:                HAND_OFF_TO_IDS
+    precision_hover:       NO_OP
+    landing:               NO_OP
+    emergency_recovery:    NO_OP
+    post_landing:          HAND_OFF_TO_IDS
+
+  T18_EvilTwin:
+    idle:                  HAND_OFF_TO_IDS
+    takeoff:               HAND_OFF_TO_IDS
+    cruise:                HAND_OFF_TO_IDS
+    precision_hover:       HAND_OFF_TO_IDS
+    landing:               HAND_OFF_TO_IDS
+    emergency_recovery:    HAND_OFF_TO_IDS
+    post_landing:          HAND_OFF_TO_IDS
+
+  unknown:
+    idle:                  HAND_OFF_TO_IDS
+    takeoff:               NO_OP
+    cruise:                HAND_OFF_TO_IDS
+    precision_hover:       NO_OP
+    landing:               NO_OP
+    emergency_recovery:    NO_OP
+    post_landing:          HAND_OFF_TO_IDS

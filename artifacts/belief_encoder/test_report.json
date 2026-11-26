@@ -1,0 +1,176 @@
+{
+  "test_all": {
+    "macro_f1": 0.9961338639259338,
+    "weighted_f1": 0.9942072629928589,
+    "per_class_f1": {
+      "Normal": 0.991304337978363,
+      "MAVLink_Heartbeat_Flooding": 0.9881656765937805,
+      "MAVLink_Ping_Flooding": 1.0,
+      "MAVLink_Request_Flooding": 0.9973333477973938,
+      "MAVLink_Corruption": 1.0,
+      "MAVLink_Suspension": 1.0
+    },
+    "per_class_precision": {
+      "Normal": 0.9884393215179443,
+      "MAVLink_Heartbeat_Flooding": 0.9881656765937805,
+      "MAVLink_Ping_Flooding": 1.0,
+      "MAVLink_Request_Flooding": 1.0,
+      "MAVLink_Corruption": 1.0,
+      "MAVLink_Suspension": 1.0
+    },
+    "per_class_recall": {
+      "Normal": 0.9941860437393188,
+      "MAVLink_Heartbeat_Flooding": 0.9881656765937805,
+      "MAVLink_Ping_Flooding": 1.0,
+      "MAVLink_Request_Flooding": 0.9946808218955994,
+      "MAVLink_Corruption": 1.0,
+      "MAVLink_Suspension": 1.0
+    },
+    "confusion_matrix": [
+      [
+        171,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        2,
+        167,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        141,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        187,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        7,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        13
+      ]
+    ],
+    "labels_order": [
+      "Normal",
+      "MAVLink_Heartbeat_Flooding",
+      "MAVLink_Ping_Flooding",
+      "MAVLink_Request_Flooding",
+      "MAVLink_Corruption",
+      "MAVLink_Suspension"
+    ]
+  },
+  "test_real_only": {
+    "macro_f1": 0.9941443204879761,
+    "weighted_f1": 0.9910393953323364,
+    "per_class_f1": {
+      "Normal": 0.9908257126808167,
+      "MAVLink_Heartbeat_Flooding": 0.9811320900917053,
+      "MAVLink_Ping_Flooding": 1.0,
+      "MAVLink_Request_Flooding": 0.9929078221321106,
+      "MAVLink_Corruption": 1.0,
+      "MAVLink_Suspension": 1.0
+    },
+    "per_class_precision": {
+      "Normal": 1.0,
+      "MAVLink_Heartbeat_Flooding": 0.9629629850387573,
+      "MAVLink_Ping_Flooding": 1.0,
+      "MAVLink_Request_Flooding": 1.0,
+      "MAVLink_Corruption": 1.0,
+      "MAVLink_Suspension": 1.0
+    },
+    "per_class_recall": {
+      "Normal": 0.9818181991577148,
+      "MAVLink_Heartbeat_Flooding": 1.0,
+      "MAVLink_Ping_Flooding": 1.0,
+      "MAVLink_Request_Flooding": 0.98591548204422,
+      "MAVLink_Corruption": 1.0,
+      "MAVLink_Suspension": 1.0
+    },
+    "confusion_matrix": [
+      [
+        54,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        52,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        24,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        70,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        7,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        13
+      ]
+    ],
+    "labels_order": [
+      "Normal",
+      "MAVLink_Heartbeat_Flooding",
+      "MAVLink_Ping_Flooding",
+      "MAVLink_Request_Flooding",
+      "MAVLink_Corruption",
+      "MAVLink_Suspension"
+    ]
+  },
+  "n_test": 690,
+  "n_test_real": 222
+}

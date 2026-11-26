@@ -1,0 +1,384 @@
+{
+  "method": {
+    "score": "observed - predicted",
+    "bound": "predicted + q",
+    "coverage_event": "observed <= predicted + q",
+    "alpha": 0.1,
+    "target_coverage": 0.9,
+    "bootstrap_resamples": 10000,
+    "bootstrap_level": 0.9
+  },
+  "data": {
+    "evaluation_rows_with_observed_cost": 1800000,
+    "evaluation_episodes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "recalibration_episodes": [
+      0,
+      1
+    ],
+    "post_recalibration_test_episodes": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "recalibration_rows": 360000,
+    "post_recalibration_test_rows": 1440000
+  },
+  "training_time_quantiles": {
+    "cpu": 0.012506932020187378,
+    "ram": 2.494605302810669,
+    "lat": 0.5631199479103088,
+    "bw": 20.5418701171875,
+    "energy": 0.0063973963260650635,
+    "mission_delay": 0.26433777809143066
+  },
+  "training_test_coverage_from_saved_report": {
+    "cpu": 0.9007514842647565,
+    "ram": 0.8995811095596651,
+    "lat": 0.8988551809451146,
+    "bw": 0.8991440709039663,
+    "energy": 0.8991255523168604,
+    "mission_delay": 0.8986403653346864
+  },
+  "fixed_training_q_all_eval_overall_coverage": {
+    "cpu": 0.9007905555555555,
+    "ram": 0.9000605555555555,
+    "lat": 0.9025111111111112,
+    "bw": 0.9008211111111111,
+    "energy": 0.9004116666666667,
+    "mission_delay": 0.8989061111111111
+  },
+  "fixed_training_q_episode_bootstrap": {
+    "cpu": {
+      "mean_episode_coverage": 0.9007905555555556,
+      "ci90_lo": 0.9004461111111113,
+      "ci90_hi": 0.9011555555555555,
+      "std": 0.0007210867141909361
+    },
+    "ram": {
+      "mean_episode_coverage": 0.9000605555555555,
+      "ci90_lo": 0.8996361111111112,
+      "ci90_hi": 0.9004767222222221,
+      "std": 0.0008471587711516058
+    },
+    "lat": {
+      "mean_episode_coverage": 0.902511111111111,
+      "ci90_lo": 0.9004933055555556,
+      "ci90_hi": 0.9043334444444445,
+      "std": 0.0038808992000338117
+    },
+    "bw": {
+      "mean_episode_coverage": 0.9008211111111111,
+      "ci90_lo": 0.9005094444444444,
+      "ci90_hi": 0.9011277777777777,
+      "std": 0.000645102899034666
+    },
+    "energy": {
+      "mean_episode_coverage": 0.9004116666666666,
+      "ci90_lo": 0.9001694166666667,
+      "ci90_hi": 0.90066,
+      "std": 0.0005021998929811606
+    },
+    "mission_delay": {
+      "mean_episode_coverage": 0.8989061111111111,
+      "ci90_lo": 0.898367777777778,
+      "ci90_hi": 0.8994005555555555,
+      "std": 0.0010541200440250386
+    }
+  },
+  "fixed_training_q_worst_cells": [
+    {
+      "family": "MITM",
+      "mission_phase": "cruise",
+      "dimension": "lat",
+      "n": 38145,
+      "coverage": 0.8639140123214052
+    },
+    {
+      "family": "Deauthentication",
+      "mission_phase": "cruise",
+      "dimension": "mission_delay",
+      "n": 11820,
+      "coverage": 0.8710659898477158
+    },
+    {
+      "family": "FakeLanding",
+      "mission_phase": "cruise",
+      "dimension": "mission_delay",
+      "n": 44820,
+      "coverage": 0.8728023203926818
+    },
+    {
+      "family": "Replay",
+      "mission_phase": "cruise",
+      "dimension": "lat",
+      "n": 19785,
+      "coverage": 0.8829416224412434
+    },
+    {
+      "family": "MITM",
+      "mission_phase": "cruise",
+      "dimension": "mission_delay",
+      "n": 38145,
+      "coverage": 0.8857779525494822
+    },
+    {
+      "family": "DDoS",
+      "mission_phase": "cruise",
+      "dimension": "lat",
+      "n": 6960,
+      "coverage": 0.8895114942528736
+    },
+    {
+      "family": "Jamming",
+      "mission_phase": "cruise",
+      "dimension": "lat",
+      "n": 217710,
+      "coverage": 0.8896329980248955
+    },
+    {
+      "family": "DoS",
+      "mission_phase": "cruise",
+      "dimension": "mission_delay",
+      "n": 25245,
+      "coverage": 0.890394137452961
+    },
+    {
+      "family": "Replay",
+      "mission_phase": "cruise",
+      "dimension": "mission_delay",
+      "n": 19785,
+      "coverage": 0.8920899671468284
+    },
+    {
+      "family": "ICMP_Flooding",
+      "mission_phase": "cruise",
+      "dimension": "energy",
+      "n": 10170,
+      "coverage": 0.8930186823992133
+    },
+    {
+      "family": "DDoS",
+      "mission_phase": "cruise",
+      "dimension": "ram",
+      "n": 6960,
+      "coverage": 0.8935344827586207
+    },
+    {
+      "family": "Deauthentication",
+      "mission_phase": "cruise",
+      "dimension": "ram",
+      "n": 11820,
+      "coverage": 0.8945854483925549
+    }
+  ],
+  "recalibrated_quantiles": {
+    "cpu": 0.01244893161549452,
+    "ram": 2.480850830119474,
+    "lat": 0.5575808610245421,
+    "bw": 20.43081893645126,
+    "energy": 0.006389582957901263,
+    "mission_delay": 0.2663786909307144
+  },
+  "recalibrated_to_training_quantile_ratio": {
+    "cpu": 0.995362539382221,
+    "ram": 0.9944863130549358,
+    "lat": 0.9901635754401493,
+    "bw": 0.9945939108706893,
+    "energy": 0.9987786643556901,
+    "mission_delay": 1.007720851911594
+  },
+  "post_split_using_training_q_overall_coverage": {
+    "cpu": 0.9007229166666667,
+    "ram": 0.8997743055555556,
+    "lat": 0.90291875,
+    "bw": 0.9007,
+    "energy": 0.9004381944444444,
+    "mission_delay": 0.8987326388888889
+  },
+  "post_split_using_training_q_episode_bootstrap": {
+    "cpu": {
+      "mean_episode_coverage": 0.9007229166666666,
+      "ci90_lo": 0.900504861111111,
+      "ci90_hi": 0.9009256944444444,
+      "std": 0.00038349361153501484
+    },
+    "ram": {
+      "mean_episode_coverage": 0.8997743055555556,
+      "ci90_lo": 0.8993923611111112,
+      "ci90_hi": 0.9001146527777778,
+      "std": 0.0006661104657317193
+    },
+    "lat": {
+      "mean_episode_coverage": 0.90291875,
+      "ci90_lo": 0.9008087847222223,
+      "ci90_hi": 0.9045090625000001,
+      "std": 0.0034606644944845844
+    },
+    "bw": {
+      "mean_episode_coverage": 0.9007000000000001,
+      "ci90_lo": 0.9003444444444445,
+      "ci90_hi": 0.9010458680555555,
+      "std": 0.0006213074341174221
+    },
+    "energy": {
+      "mean_episode_coverage": 0.9004381944444444,
+      "ci90_lo": 0.9001451041666667,
+      "ci90_hi": 0.90074375,
+      "std": 0.0005460733447840125
+    },
+    "mission_delay": {
+      "mean_episode_coverage": 0.8987326388888889,
+      "ci90_lo": 0.8981243055555556,
+      "ci90_hi": 0.8993319444444444,
+      "std": 0.0011189384515590678
+    }
+  },
+  "post_split_using_recalibrated_q_overall_coverage": {
+    "cpu": 0.8997243055555556,
+    "ram": 0.8985666666666666,
+    "lat": 0.9019493055555555,
+    "bw": 0.89948125,
+    "energy": 0.9001611111111111,
+    "mission_delay": 0.8991576388888889
+  },
+  "post_split_using_recalibrated_q_episode_bootstrap": {
+    "cpu": {
+      "mean_episode_coverage": 0.8997243055555555,
+      "ci90_lo": 0.8995277430555555,
+      "ci90_hi": 0.8999055555555555,
+      "std": 0.00034317402041708487
+    },
+    "ram": {
+      "mean_episode_coverage": 0.8985666666666667,
+      "ci90_lo": 0.8981833333333333,
+      "ci90_hi": 0.8989104166666666,
+      "std": 0.0006682586811280482
+    },
+    "lat": {
+      "mean_episode_coverage": 0.9019493055555556,
+      "ci90_lo": 0.8998312500000001,
+      "ci90_hi": 0.9035520833333334,
+      "std": 0.00347103336790265
+    },
+    "bw": {
+      "mean_episode_coverage": 0.89948125,
+      "ci90_lo": 0.8991013888888889,
+      "ci90_hi": 0.8998576388888889,
+      "std": 0.0006800115253458362
+    },
+    "energy": {
+      "mean_episode_coverage": 0.9001611111111112,
+      "ci90_lo": 0.8998604166666666,
+      "ci90_hi": 0.900475,
+      "std": 0.0005612328957889971
+    },
+    "mission_delay": {
+      "mean_episode_coverage": 0.8991576388888889,
+      "ci90_lo": 0.8985457986111112,
+      "ci90_hi": 0.8997548611111111,
+      "std": 0.0011190034678332857
+    }
+  },
+  "recalibrated_worst_cells": [
+    {
+      "family": "MITM",
+      "mission_phase": "cruise",
+      "dimension": "lat",
+      "n": 37140,
+      "coverage": 0.8629779213785675
+    },
+    {
+      "family": "Deauthentication",
+      "mission_phase": "cruise",
+      "dimension": "mission_delay",
+      "n": 11055,
+      "coverage": 0.8721845318860244
+    },
+    {
+      "family": "FakeLanding",
+      "mission_phase": "cruise",
+      "dimension": "mission_delay",
+      "n": 40695,
+      "coverage": 0.8736454109841504
+    },
+    {
+      "family": "Replay",
+      "mission_phase": "cruise",
+      "dimension": "lat",
+      "n": 12795,
+      "coverage": 0.8812817506838608
+    },
+    {
+      "family": "MITM",
+      "mission_phase": "cruise",
+      "dimension": "mission_delay",
+      "n": 37140,
+      "coverage": 0.8865105008077544
+    },
+    {
+      "family": "DDoS",
+      "mission_phase": "cruise",
+      "dimension": "lat",
+      "n": 4995,
+      "coverage": 0.8876876876876877
+    },
+    {
+      "family": "Jamming",
+      "mission_phase": "cruise",
+      "dimension": "lat",
+      "n": 115920,
+      "coverage": 0.8885265700483091
+    },
+    {
+      "family": "Replay",
+      "mission_phase": "cruise",
+      "dimension": "ram",
+      "n": 12795,
+      "coverage": 0.8912075029308324
+    },
+    {
+      "family": "DoS",
+      "mission_phase": "cruise",
+      "dimension": "mission_delay",
+      "n": 18975,
+      "coverage": 0.8914888010540184
+    },
+    {
+      "family": "Replay",
+      "mission_phase": "cruise",
+      "dimension": "mission_delay",
+      "n": 12795,
+      "coverage": 0.8919890582258695
+    },
+    {
+      "family": "DoS",
+      "mission_phase": "cruise",
+      "dimension": "ram",
+      "n": 18975,
+      "coverage": 0.8932806324110671
+    },
+    {
+      "family": "ICMP_Flooding",
+      "mission_phase": "cruise",
+      "dimension": "energy",
+      "n": 10140,
+      "coverage": 0.893293885601578
+    }
+  ]
+}

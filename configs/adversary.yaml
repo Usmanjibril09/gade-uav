@@ -1,0 +1,92 @@
+# Two-level Poisson adversary model.
+#
+# Per attack class:
+#   campaign_rate_per_s      -- Poisson rate for campaign arrivals.
+#                               Set so E[campaigns per 120s episode] in [1, 3].
+#   intra_pkt_rate_per_s     -- Packet rate within a campaign.
+#                               Derived from Phase 1 UAV-NIDD empirical rates,
+#                               capped at 1000 pkt/s so the sim stays real-time.
+#   campaign_duration_s      -- Mean campaign duration (exponential).
+#                               Tuned so campaign character (bursty vs slow)
+#                               is preserved.
+#   canonical_family         -- Attack family from src/gade_uav/labels.py.
+#
+# Rationale: raw UAV-NIDD packet rates span 7 OOM (0.06 for Recon,
+# 1.3M for DDoS). Direct replay would drown the loop. Two-level model
+# keeps qualitative character (Jamming = long-slow, DDoS = short-intense,
+# Recon = rare-sparse) while making the sim tractable.
+
+episode_duration_s: 120.0
+
+classes:
+  BruteForce:
+    campaign_rate_per_s: 0.02      # ~2.4 campaigns / episode
+    intra_pkt_rate_per_s: 1000.0
+    campaign_duration_s: 3.5
+    canonical_family: BruteForce
+
+  DDoS:
+    campaign_rate_per_s: 0.015     # ~1.8 campaigns / episode
+    intra_pkt_rate_per_s: 1000.0
+    campaign_duration_s: 0.5       # short intense burst
+    canonical_family: DDoS
+
+  Deauthentication:
+    campaign_rate_per_s: 0.02
+    intra_pkt_rate_per_s: 500.0
+    campaign_duration_s: 0.5
+    canonical_family: Deauthentication
+
+  DoS:
+    campaign_rate_per_s: 0.02
+    intra_pkt_rate_per_s: 500.0
+    campaign_duration_s: 1.0
+    canonical_family: DoS
+
+  FakeLanding:
+    campaign_rate_per_s: 0.01      # rare, high-impact
+    intra_pkt_rate_per_s: 100.0
+    campaign_duration_s: 3.0
+    canonical_family: FakeLanding
+
+  ICMP_Flooding:
+    campaign_rate_per_s: 0.015
+    intra_pkt_rate_per_s: 1000.0
+    campaign_duration_s: 0.5
+    canonical_family: ICMP_Flooding
+
+  Jamming:
+    campaign_rate_per_s: 0.01      # ~1.2 campaigns / episode, long
+    intra_pkt_rate_per_s: 10.0     # empirical: 9.09 pkt/s
+    campaign_duration_s: 30.0      # long-slow character preserved
+    canonical_family: Jamming
+
+  MITM:
+    campaign_rate_per_s: 0.015
+    intra_pkt_rate_per_s: 500.0
+    campaign_duration_s: 2.0
+    canonical_family: MITM
+
+  Reconnaissance:
+    campaign_rate_per_s: 0.008     # rare
+    intra_pkt_rate_per_s: 1.0      # empirical: 0.06 pkt/s, floor at 1
+    campaign_duration_s: 10.0
+    canonical_family: Reconnaissance
+
+  Replay:
+    campaign_rate_per_s: 0.015
+    intra_pkt_rate_per_s: 500.0
+    campaign_duration_s: 1.0
+    canonical_family: Replay
+
+  Scanning:
+    campaign_rate_per_s: 0.02
+    intra_pkt_rate_per_s: 200.0
+    campaign_duration_s: 2.0
+    canonical_family: Reconnaissance   # Scanning is a Reconnaissance subtype
+
+  UDP_Flooding:
+    campaign_rate_per_s: 0.015
+    intra_pkt_rate_per_s: 1000.0
+    campaign_duration_s: 0.5
+    canonical_family: UDP_Flooding

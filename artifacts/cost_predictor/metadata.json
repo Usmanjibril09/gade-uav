@@ -1,0 +1,32 @@
+{
+  "cost_dims": [
+    "cpu",
+    "ram",
+    "lat",
+    "bw",
+    "energy",
+    "mission_delay"
+  ],
+  "n_features": 26,
+  "n_targets": 6,
+  "best_iterations": {
+    "cpu": 310,
+    "ram": 325,
+    "lat": 215,
+    "bw": 170,
+    "energy": 320,
+    "mission_delay": 145
+  },
+  "config": {
+    "num_leaves": 63,
+    "learning_rate": 0.05,
+    "n_estimators": 2000,
+    "min_data_in_leaf": 100,
+    "feature_fraction": 0.9,
+    "bagging_fraction": 0.9,
+    "bagging_freq": 5,
+    "lambda_l2": 0.1,
+    "early_stopping_rounds": 50,
+    "seed": 42
+  }
+}

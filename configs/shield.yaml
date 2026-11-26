@@ -1,0 +1,34 @@
+# GADe-UAV runtime safety shield configuration.
+# Source of truth: docs/02_shield_spec.md
+# Any change here requires an amendment in that document (spec §12).
+
+shield:
+  # spec §5: adaptive conformal inference
+  conformal:
+    alpha_target: 0.10          # per-dimension miscoverage target
+    aci_gamma: 0.005            # ACI step size (Gibbs & Candes 2021)
+    min_calibration_size: 200   # refuse to gate below this many samples
+
+  # spec §6: timed properties
+  timed:
+    burst_window_seconds: 1.0
+    burst_max_emissions_per_decoy: 20
+    shield_decision_deadline_ms: 5.0   # Δ_shield_max
+    post_reject_quiet_period_ms: 200.0 # Δ_quiet
+
+  # spec §4.1: uncertainty threshold for S7 (1 - confidence <= threshold)
+  uncertainty_threshold: 0.30
+
+  # spec §7: repair budget for MODIFY branch
+  repair_max_attempts: 1
+
+  # spec §4.1: bounded template whitelist (empty until Phase 2 track 2
+  # produces the generator; populate then).
+  bounded_template_whitelist: []
+
+# Per-decoy default bounds (spec §4.1, S6). Overridden per decoy at spawn.
+decoy_defaults:
+  tau_alt_m: 5.0
+  tau_pos_m: 15.0
+  tau_bat_pct: 2.0
+  tau_att_rad_s: 3.14   # ~180 deg/s

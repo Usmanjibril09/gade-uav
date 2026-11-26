@@ -1,0 +1,12 @@
+{
+  "contexts": 33,
+  "invalid": 0,
+  "max_generation_latency_ms": 8830.658425024012,
+  "mean_generation_latency_ms": 5554.462017577889,
+  "min_generation_latency_ms": 4832.441723003285,
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "reason": "Observed CPU generation latency is orders of magnitude above the 5 ms runtime shield deadline.",
+  "runtime_mode": "offline_cached",
+  "valid": 33,
+  "valid_fraction": 1.0
+}

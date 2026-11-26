@@ -1,0 +1,50 @@
+# Per-dimension base budgets and per-phase slack multipliers.
+# Locked by docs/02_shield_spec.md §5.3.
+#
+# base_budget: absolute per-decision cap in the units locked in
+#   src/gade_uav/shield/actions.py:
+#     cpu           = fraction in [0, 1]
+#     ram           = megabytes
+#     lat           = milliseconds wall-clock
+#     bw            = bytes emitted per decision
+#     energy        = joules per decision
+#     mission_delay = milliseconds of induced GCS<->UAV delay
+#
+# phase_slack: multiplier applied to base_budget in the given phase.
+#   Critical phases (takeoff/landing/precision_hover/emergency_recovery)
+#   use 0.5 to tighten. Cruise uses 1.5 to loosen. Idle/post_landing
+#   use 1.0. Any change here requires a spec amendment (§5.3).
+#
+# Rationale for base values (Phase 1 grounding):
+#   - lat 5.0 ms matches the shield decision deadline Delta_shield_max
+#     in configs/shield.yaml (§6, T-Shield-2). Any generated action
+#     with predicted latency >5 ms is prima facie unusable.
+#   - bw 4096 B is chosen so a single decision cannot saturate a
+#     nominal 100 kB/s decoy channel more than 40 ms of its budget.
+#   - cpu 0.2 keeps any one decoy at <=20% of one core, leaving
+#     headroom on Kaggle training instances (2 vCPU) for the DRL agent.
+#   - ram 32 MB is a conservative decoy footprint on a 512 MB HITL.
+#   - energy 0.5 J/decision matches Wan et al. HT-DRL 2026 assumptions.
+#   - mission_delay 2.0 ms is Chen et al. 2026's stated max acceptable
+#     GCS command-path perturbation from a MAVLink honeypot.
+#
+# These are placeholders that WILL be re-tuned once M3 (cost predictor)
+# is trained in Phase 2 track 2. The values are conservative -- if the
+# gate rejects too much, base budgets go up; if runtime cost blows
+# through, base budgets go down.
+base_budget:
+  cpu: 0.20
+  ram: 32.0
+  lat: 5.0
+  bw: 4096.0
+  energy: 0.5
+  mission_delay: 2.0
+
+phase_slack:
+  idle: 1.0
+  takeoff: 0.5
+  cruise: 1.5
+  precision_hover: 0.5
+  landing: 0.5
+  emergency_recovery: 0.5
+  post_landing: 1.0

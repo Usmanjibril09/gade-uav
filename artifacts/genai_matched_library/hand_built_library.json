@@ -1,0 +1,299 @@
+[
+  {
+    "family": "BruteForce",
+    "phase": "takeoff",
+    "candidate_type": "decoy_telemetry",
+    "profile": "medium",
+    "theme": "telemetry_mimic",
+    "confidence": 0.95,
+    "label": "MANUAL_BRUTEFORCE_TAKEOFF"
+  },
+  {
+    "family": "BruteForce",
+    "phase": "cruise",
+    "candidate_type": "decoy_telemetry",
+    "profile": "medium",
+    "theme": "service_lure",
+    "confidence": 0.95,
+    "label": "MANUAL_BRUTEFORCE_CRUISE"
+  },
+  {
+    "family": "BruteForce",
+    "phase": "landing",
+    "candidate_type": "decoy_telemetry",
+    "profile": "medium",
+    "theme": "telemetry_mimic",
+    "confidence": 0.95,
+    "label": "MANUAL_BRUTEFORCE_LANDING"
+  },
+  {
+    "family": "DDoS",
+    "phase": "takeoff",
+    "candidate_type": "honey_beacon",
+    "profile": "low",
+    "theme": "telemetry_mimic",
+    "confidence": 0.95,
+    "label": "MANUAL_DDOS_TAKEOFF"
+  },
+  {
+    "family": "DDoS",
+    "phase": "cruise",
+    "candidate_type": "decoy_telemetry",
+    "profile": "high",
+    "theme": "network_presence",
+    "confidence": 0.95,
+    "label": "MANUAL_DDOS_CRUISE"
+  },
+  {
+    "family": "DDoS",
+    "phase": "landing",
+    "candidate_type": "honey_beacon",
+    "profile": "low",
+    "theme": "telemetry_mimic",
+    "confidence": 0.95,
+    "label": "MANUAL_DDOS_LANDING"
+  },
+  {
+    "family": "Deauthentication",
+    "phase": "takeoff",
+    "candidate_type": "honey_beacon",
+    "profile": "low",
+    "theme": "network_presence",
+    "confidence": 0.95,
+    "label": "MANUAL_DEAUTHENTICATION_TAKEOFF"
+  },
+  {
+    "family": "Deauthentication",
+    "phase": "cruise",
+    "candidate_type": "decoy_telemetry",
+    "profile": "high",
+    "theme": "network_presence",
+    "confidence": 0.95,
+    "label": "MANUAL_DEAUTHENTICATION_CRUISE"
+  },
+  {
+    "family": "Deauthentication",
+    "phase": "landing",
+    "candidate_type": "decoy_telemetry",
+    "profile": "medium",
+    "theme": "telemetry_mimic",
+    "confidence": 0.88,
+    "label": "MANUAL_DEAUTHENTICATION_LANDING"
+  },
+  {
+    "family": "DoS",
+    "phase": "takeoff",
+    "candidate_type": "honey_beacon",
+    "profile": "low",
+    "theme": "telemetry_mimic",
+    "confidence": 0.95,
+    "label": "MANUAL_DOS_TAKEOFF"
+  },
+  {
+    "family": "DoS",
+    "phase": "cruise",
+    "candidate_type": "decoy_telemetry",
+    "profile": "high",
+    "theme": "network_presence",
+    "confidence": 0.95,
+    "label": "MANUAL_DOS_CRUISE"
+  },
+  {
+    "family": "DoS",
+    "phase": "landing",
+    "candidate_type": "honey_beacon",
+    "profile": "low",
+    "theme": "telemetry_mimic",
+    "confidence": 0.95,
+    "label": "MANUAL_DOS_LANDING"
+  },
+  {
+    "family": "FakeLanding",
+    "phase": "takeoff",
+    "candidate_type": "decoy_telemetry",
+    "profile": "medium",
+    "theme": "telemetry_mimic",
+    "confidence": 0.95,
+    "label": "MANUAL_FAKELANDING_TAKEOFF"
+  },
+  {
+    "family": "FakeLanding",
+    "phase": "cruise",
+    "candidate_type": "decoy_telemetry",
+    "profile": "medium",
+    "theme": "telemetry_mimic",
+    "confidence": 0.95,
+    "label": "MANUAL_FAKELANDING_CRUISE"
+  },
+  {
+    "family": "FakeLanding",
+    "phase": "landing",
+    "candidate_type": "decoy_telemetry",
+    "profile": "medium",
+    "theme": "telemetry_mimic",
+    "confidence": 0.95,
+    "label": "MANUAL_FAKELANDING_LANDING"
+  },
+  {
+    "family": "ICMP_Flooding",
+    "phase": "takeoff",
+    "candidate_type": "honey_beacon",
+    "profile": "low",
+    "theme": "telemetry_mimic",
+    "confidence": 0.95,
+    "label": "MANUAL_ICMP_FLOODING_TAKEOFF"
+  },
+  {
+    "family": "ICMP_Flooding",
+    "phase": "cruise",
+    "candidate_type": "decoy_telemetry",
+    "profile": "high",
+    "theme": "network_presence",
+    "confidence": 0.95,
+    "label": "MANUAL_ICMP_FLOODING_CRUISE"
+  },
+  {
+    "family": "ICMP_Flooding",
+    "phase": "landing",
+    "candidate_type": "honey_beacon",
+    "profile": "low",
+    "theme": "telemetry_mimic",
+    "confidence": 0.95,
+    "label": "MANUAL_ICMP_FLOODING_LANDING"
+  },
+  {
+    "family": "Jamming",
+    "phase": "takeoff",
+    "candidate_type": "honey_beacon",
+    "profile": "low",
+    "theme": "network_presence",
+    "confidence": 0.95,
+    "label": "MANUAL_JAMMING_TAKEOFF"
+  },
+  {
+    "family": "Jamming",
+    "phase": "cruise",
+    "candidate_type": "honey_beacon",
+    "profile": "high",
+    "theme": "network_presence",
+    "confidence": 0.95,
+    "label": "MANUAL_JAMMING_CRUISE"
+  },
+  {
+    "family": "Jamming",
+    "phase": "landing",
+    "candidate_type": "decoy_telemetry",
+    "profile": "high",
+    "theme": "network_presence",
+    "confidence": 0.95,
+    "label": "MANUAL_JAMMING_LANDING"
+  },
+  {
+    "family": "MITM",
+    "phase": "takeoff",
+    "candidate_type": "decoy_telemetry",
+    "profile": "medium",
+    "theme": "telemetry_mimic",
+    "confidence": 0.88,
+    "label": "MANUAL_MITM_TAKEOFF"
+  },
+  {
+    "family": "MITM",
+    "phase": "cruise",
+    "candidate_type": "decoy_telemetry",
+    "profile": "medium",
+    "theme": "telemetry_mimic",
+    "confidence": 0.95,
+    "label": "MANUAL_MITM_CRUISE"
+  },
+  {
+    "family": "MITM",
+    "phase": "landing",
+    "candidate_type": "decoy_telemetry",
+    "profile": "medium",
+    "theme": "telemetry_mimic",
+    "confidence": 0.88,
+    "label": "MANUAL_MITM_LANDING"
+  },
+  {
+    "family": "Reconnaissance",
+    "phase": "takeoff",
+    "candidate_type": "honey_beacon",
+    "profile": "low",
+    "theme": "telemetry_mimic",
+    "confidence": 0.95,
+    "label": "MANUAL_RECONNAISSANCE_TAKEOFF"
+  },
+  {
+    "family": "Reconnaissance",
+    "phase": "cruise",
+    "candidate_type": "decoy_telemetry",
+    "profile": "medium",
+    "theme": "telemetry_mimic",
+    "confidence": 0.95,
+    "label": "MANUAL_RECONNAISSANCE_CRUISE"
+  },
+  {
+    "family": "Reconnaissance",
+    "phase": "landing",
+    "candidate_type": "decoy_telemetry",
+    "profile": "medium",
+    "theme": "telemetry_mimic",
+    "confidence": 0.95,
+    "label": "MANUAL_RECONNAISSANCE_LANDING"
+  },
+  {
+    "family": "Replay",
+    "phase": "takeoff",
+    "candidate_type": "decoy_telemetry",
+    "profile": "medium",
+    "theme": "telemetry_mimic",
+    "confidence": 0.88,
+    "label": "MANUAL_REPLAY_TAKEOFF"
+  },
+  {
+    "family": "Replay",
+    "phase": "cruise",
+    "candidate_type": "decoy_telemetry",
+    "profile": "medium",
+    "theme": "telemetry_mimic",
+    "confidence": 0.95,
+    "label": "MANUAL_REPLAY_CRUISE"
+  },
+  {
+    "family": "Replay",
+    "phase": "landing",
+    "candidate_type": "decoy_telemetry",
+    "profile": "medium",
+    "theme": "telemetry_mimic",
+    "confidence": 0.88,
+    "label": "MANUAL_REPLAY_LANDING"
+  },
+  {
+    "family": "UDP_Flooding",
+    "phase": "takeoff",
+    "candidate_type": "decoy_telemetry",
+    "profile": "medium",
+    "theme": "telemetry_mimic",
+    "confidence": 0.95,
+    "label": "MANUAL_UDP_FLOODING_TAKEOFF"
+  },
+  {
+    "family": "UDP_Flooding",
+    "phase": "cruise",
+    "candidate_type": "decoy_telemetry",
+    "profile": "high",
+    "theme": "network_presence",
+    "confidence": 0.95,
+    "label": "MANUAL_UDP_FLOODING_CRUISE"
+  },
+  {
+    "family": "UDP_Flooding",
+    "phase": "landing",
+    "candidate_type": "decoy_telemetry",
+    "profile": "medium",
+    "theme": "telemetry_mimic",
+    "confidence": 0.88,
+    "label": "MANUAL_UDP_FLOODING_LANDING"
+  }
+]

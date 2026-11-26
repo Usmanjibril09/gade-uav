@@ -1,0 +1,120 @@
+# Effector cost model. Per action type, base cost per dimension plus a
+# noise model. Noise is per-dimension and physically motivated:
+#   - cpu/ram/bw/energy: additive Gaussian (near-symmetric in practice).
+#   - lat/mission_delay: multiplicative log-normal (heavy right tail from
+#     queueing). Matches Little's law derivations and HT-DRL supplementary.
+#
+# Units (locked in shield/actions.py CostVector):
+#   cpu           : fraction in [0,1]
+#   ram           : megabytes
+#   lat           : milliseconds
+#   bw            : bytes emitted for this action
+#   energy        : joules
+#   mission_delay : milliseconds
+#
+# Noise semantics:
+#   gaussian  : observed = max(0, base + N(0, sigma))
+#   lognormal : observed = base * LogNormal(mu=0, sigma=sigma)
+#               so E[observed] = base * exp(sigma**2 / 2). See tests.
+
+noise:
+  cpu:           { model: gaussian,  sigma: 0.01 }
+  ram:           { model: gaussian,  sigma: 2.0 }
+  lat:           { model: lognormal, sigma: 0.30 }
+  bw:            { model: gaussian,  sigma: 16.0 }
+  energy:        { model: gaussian,  sigma: 0.005 }
+  mission_delay: { model: lognormal, sigma: 0.40 }
+
+# Base cost per ActionType. These are deterministic and get perturbed by
+# the noise model above. Numbers are calibrated to be conservative
+# (favoring under-prediction so the shield gate has to work) yet within
+# the base_budget in configs/budget_schedule.yaml.
+base_cost:
+  mavlink_response:
+    cpu: 0.02
+    ram: 4.0
+    lat: 1.2
+    bw: 128.0
+    energy: 0.02
+    mission_delay: 0.5
+  network_response:
+    cpu: 0.03
+    ram: 6.0
+    lat: 1.5
+    bw: 256.0
+    energy: 0.03
+    mission_delay: 0.7
+  decoy_service_config:
+    cpu: 0.05
+    ram: 12.0
+    lat: 2.0
+    bw: 64.0
+    energy: 0.04
+    mission_delay: 0.3
+  decoy_telemetry:
+    cpu: 0.015
+    ram: 3.0
+    lat: 0.8
+    bw: 96.0
+    energy: 0.015
+    mission_delay: 0.2
+  honey_beacon:
+    cpu: 0.01
+    ram: 2.0
+    lat: 0.5
+    bw: 48.0
+    energy: 0.01
+    mission_delay: 0.1
+
+# ---------------------------------------------------------------------------
+# Attack-family cost multipliers. Applied multiplicatively on top of the
+# base_cost for the action_type, before noise. Rationale per family:
+#   - Bandwidth-saturating attacks (Jamming, DDoS, *_Flooding) increase
+#     bw and energy: the decoy must transmit against congested spectrum.
+#   - Interposition attacks (MITM, Replay) increase lat and cpu: extra
+#     verification, retransmit, and detection cost.
+#   - Probe/enumeration attacks (Reconnaissance, BruteForce) increase cpu
+#     and mission_delay: the decoy must respond convincingly without
+#     breaking cover.
+#   - Semantic attacks (FakeLanding, Deauthentication) increase
+#     mission_delay: the flight planner reconsiders trajectories.
+#   - Connection-oriented attacks (DoS, TCP_Flooding) increase ram from
+#     connection-table pressure.
+#   - "none" (no active campaign) is the identity row; all multipliers 1.0.
+#
+# Any family key missing here at runtime is treated as "none" (identity)
+# and logged once. Any dimension key missing inside a family entry
+# defaults to 1.0.
+family_multipliers:
+  none:              { cpu: 1.00, ram: 1.00, lat: 1.00, bw: 1.00, energy: 1.00, mission_delay: 1.00 }
+  Jamming:           { cpu: 1.00, ram: 1.00, lat: 1.20, bw: 1.50, energy: 1.40, mission_delay: 1.00 }
+  DDoS:              { cpu: 1.20, ram: 1.30, lat: 1.10, bw: 1.60, energy: 1.25, mission_delay: 1.10 }
+  UDP_Flooding:      { cpu: 1.15, ram: 1.20, lat: 1.10, bw: 1.40, energy: 1.20, mission_delay: 1.05 }
+  ICMP_Flooding:     { cpu: 1.10, ram: 1.15, lat: 1.05, bw: 1.30, energy: 1.15, mission_delay: 1.05 }
+  DoS:               { cpu: 1.20, ram: 1.30, lat: 1.10, bw: 1.10, energy: 1.10, mission_delay: 1.20 }
+  TCP_Flooding:      { cpu: 1.25, ram: 1.40, lat: 1.15, bw: 1.20, energy: 1.15, mission_delay: 1.10 }
+  MITM:              { cpu: 1.30, ram: 1.10, lat: 1.50, bw: 1.00, energy: 1.05, mission_delay: 1.30 }
+  Replay:            { cpu: 1.20, ram: 1.05, lat: 1.30, bw: 1.00, energy: 1.05, mission_delay: 1.20 }
+  Reconnaissance:    { cpu: 1.15, ram: 1.05, lat: 1.10, bw: 1.05, energy: 1.05, mission_delay: 1.10 }
+  BruteForce:        { cpu: 1.30, ram: 1.15, lat: 1.10, bw: 1.10, energy: 1.10, mission_delay: 1.10 }
+  FakeLanding:       { cpu: 1.20, ram: 1.20, lat: 1.10, bw: 1.05, energy: 1.10, mission_delay: 1.60 }
+  Deauthentication:  { cpu: 1.10, ram: 1.10, lat: 1.15, bw: 1.10, energy: 1.15, mission_delay: 1.40 }
+
+# Mission-phase cost multipliers. Applied multiplicatively on top of
+# base_cost * family_multiplier. Rationale:
+#   - Critical phases (takeoff, landing, precision_hover, emergency_recovery)
+#     have tighter compute and timing budgets: cpu and mission_delay
+#     penalized, bw slightly reduced (less spectrum headroom while the
+#     controller is prioritising flight-stack traffic).
+#   - Non-critical phases (cruise, idle, post_landing) are the identity row.
+#
+# Missing keys behave like family_multipliers (missing phase -> identity,
+# missing dim -> 1.0).
+phase_multipliers:
+  idle:                 { cpu: 1.00, ram: 1.00, lat: 1.00, bw: 1.00, energy: 1.00, mission_delay: 1.00 }
+  takeoff:              { cpu: 1.30, ram: 1.00, lat: 1.20, bw: 0.90, energy: 1.10, mission_delay: 1.50 }
+  cruise:               { cpu: 1.00, ram: 1.00, lat: 1.00, bw: 1.00, energy: 1.00, mission_delay: 1.00 }
+  precision_hover:      { cpu: 1.30, ram: 1.00, lat: 1.20, bw: 0.90, energy: 1.10, mission_delay: 1.50 }
+  landing:              { cpu: 1.30, ram: 1.00, lat: 1.20, bw: 0.90, energy: 1.10, mission_delay: 1.50 }
+  emergency_recovery:   { cpu: 1.40, ram: 1.10, lat: 1.30, bw: 0.85, energy: 1.15, mission_delay: 1.80 }
+  post_landing:         { cpu: 1.00, ram: 1.00, lat: 1.00, bw: 1.00, energy: 1.00, mission_delay: 1.00 }

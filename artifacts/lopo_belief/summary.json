@@ -1,0 +1,26 @@
+{
+  "n_folds": 4,
+  "classes": [
+    "Normal",
+    "MAVLink_Heartbeat_Flooding",
+    "MAVLink_Ping_Flooding",
+    "MAVLink_Request_Flooding"
+  ],
+  "test_macro_f1_mean": 0.4465264156460762,
+  "test_macro_f1_std": 0.4158619152868014,
+  "test_macro_f1_per_fold": {
+    "Normal": 0.0,
+    "MAVLink_Heartbeat_Flooding": 0.45382165908813477,
+    "MAVLink_Ping_Flooding": 1.0,
+    "MAVLink_Request_Flooding": 0.33228400349617004
+  },
+  "held_class_f1_mean": 0.7261238396167755,
+  "held_class_f1_std": 0.48597224249360493,
+  "held_class_f1_per_fold": {
+    "Normal": 0.0,
+    "MAVLink_Heartbeat_Flooding": 0.9076433181762695,
+    "MAVLink_Ping_Flooding": 1.0,
+    "MAVLink_Request_Flooding": 0.9968520402908325
+  },
+  "total_wall_seconds": 1494.1148011684418
+}
